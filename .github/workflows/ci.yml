@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      # Vérification TypeScript + build Vite.
+      # Le secret est injecté à l'exécution : il n'apparaît jamais dans le dépôt.
+      # Cette clé est une clé de quota api.nasa.gov (publique côté client) ;
+      # le secret GitHub évite simplement de la figer dans le code.
+      - name: Typecheck & build
+        run: npm run build
+        env:
+          VITE_NASA_API_KEY: ${{ secrets.NASA_API_KEY }}

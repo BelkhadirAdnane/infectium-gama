@@ -1,0 +1,8 @@
+node_modules
+dist
+.netlify
+
+# Secrets locaux — ne jamais committer
+.env
+.env.local
+.env.*.local

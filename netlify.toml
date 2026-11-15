@@ -1,0 +1,37 @@
+# =========================================================================
+# Déploiement Netlify — INFECTIUM
+# -------------------------------------------------------------------------
+# Variables d'environnement à configurer dans
+#   Site settings → Environment variables
+#
+#   NASA_API_KEY        (secret, serveur uniquement)  → utilisée par la Function
+#   VITE_NASA_PROXY     (publique) = /.netlify/functions/nasa
+#   VITE_NASA_API_KEY   (publique, quota) → repli si le proxy n'est pas utilisé
+#
+# Détail complet : DEPLOYMENT.md
+# =========================================================================
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# Application monopage : toutes les routes reviennent sur index.html.
+# Les Functions Netlify sont résolues avant cette règle.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "SAMEORIGIN"

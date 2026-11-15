@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>INFECTIUM — Junior Astronaut Mission Trainer</title>
+  <meta name="description" content="INFECTIUM : simulateur éducatif de gestion d'un avant-poste lunaire pour explorateurs de 7 à 12 ans. Énergie, oxygène, eau, nourriture, radiations, délais de communication et données NASA en direct." />
+  <meta name="theme-color" content="#04080f" />
+  <meta property="og:title" content="INFECTIUM — Junior Astronaut Mission Trainer" />
+  <meta property="og:description" content="Gère un avant-poste lunaire : survie, énergie, radiations et communications Terre-Lune. NASA Space Apps Challenge 2026." />
+  <meta property="og:type" content="website" />
+  <style>
+    #boot-screen {
+      position: fixed; inset: 0; z-index: 9999;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 18px; background: radial-gradient(circle at 50% 40%, #0a1a2a 0%, #04080f 60%, #010306 100%);
+      color: #dfeaf6; font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      transition: opacity 0.7s ease, visibility 0.7s ease;
+    }
+    #boot-screen.boot-out { opacity: 0; visibility: hidden; }
+    .boot-orbit { position: relative; width: 120px; height: 120px; }
+    .boot-orbit::before, .boot-orbit::after {
+      content: ''; position: absolute; inset: 0; border-radius: 50%;
+      border: 1px solid rgba(95, 230, 255, 0.35);
+      animation: bootSpin 4s linear infinite;
+    }
+    .boot-orbit::after {
+      inset: 18px; border-color: rgba(125, 222, 125, 0.35);
+      animation-duration: 2.6s; animation-direction: reverse;
+    }
+    .boot-core {
+      position: absolute; inset: 44px; border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #d8f6ff, #2fc8ee 45%, #0a3b52 100%);
+      box-shadow: 0 0 34px rgba(95, 230, 255, 0.55);
+      animation: bootPulse 2.2s ease-in-out infinite;
+    }
+    .boot-title { font-size: 2rem; letter-spacing: 0.28em; font-weight: 700; margin: 0; }
+    .boot-sub { font-size: 0.68rem; letter-spacing: 0.22em; color: #8ba6c4; text-transform: uppercase; }
+    .boot-bar { width: min(320px, 70vw); height: 3px; border-radius: 3px; overflow: hidden; background: rgba(255, 255, 255, 0.08); }
+    .boot-bar > div { height: 100%; width: 40%; border-radius: 3px; background: linear-gradient(90deg, #2a8fb0, #5fe6ff); animation: bootLoad 1.8s ease-in-out infinite; }
+    .boot-status { font-size: 0.62rem; color: #7e96b4; letter-spacing: 0.08em; }
+    @keyframes bootSpin { to { transform: rotate(360deg); } }
+    @keyframes bootPulse { 0%, 100% { transform: scale(1); opacity: 0.9; } 50% { transform: scale(1.06); opacity: 1; } }
+    @keyframes bootLoad { 0% { transform: translateX(-110%); } 100% { transform: translateX(330%); } }
+    @media (prefers-reduced-motion: reduce) {
+      .boot-orbit::before, .boot-orbit::after, .boot-core, .boot-bar > div { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <div id="boot-screen">
+    <div class="boot-orbit"><div class="boot-core"></div></div>
+    <h1 class="boot-title">INFECTIUM</h1>
+    <div class="boot-sub">Junior Astronaut Mission Trainer</div>
+    <div class="boot-bar"><div></div></div>
+    <div class="boot-status">Initialisation des systèmes de survie…</div>
+  </div>
+  <div id="root"></div>
+  <script>
+    window.__hideBoot = function () {
+      var el = document.getElementById('boot-screen');
+      if (!el) return;
+      el.classList.add('boot-out');
+      setTimeout(function () { el.remove(); }, 800);
+    };
+    setTimeout(window.__hideBoot, 7000);
+  </script>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+</html>
