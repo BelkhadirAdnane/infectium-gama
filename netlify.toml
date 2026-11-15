@@ -17,6 +17,8 @@
 
 [build.environment]
   NODE_VERSION = "20"
+  # VITE_NASA_API_KEY est une clé de quota api.nasa.gov, publique par conception.
+  SECRETS_SCAN_OMIT_KEYS = "VITE_NASA_API_KEY,NASA_API_KEY"
 
 [functions]
   directory = "netlify/functions"
