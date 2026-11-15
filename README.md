@@ -155,3 +155,16 @@ Tests logiques : `npx tsx scripts/simtest.ts` (42 vérifications) et `npx tsx sc
 ```bash
 ./node_modules/.bin/esbuild scripts/corrections-test.ts --bundle --platform=node --format=esm --outfile=/tmp/t.mjs && node /tmp/t.mjs
 ```
+
+## Utilisation de l'IA / Use of AI
+
+Code and quiz content developed with the assistance of Claude (Anthropic), an AI assistant.
+Le code et le contenu du quiz ont été développés avec l'assistance de Claude (Anthropic), un assistant IA.
+
+## Données et ressources / Data and resources
+
+- NASA DONKI, APOD, NeoWs — https://api.nasa.gov
+- Three.js — https://threejs.org
+- React — https://react.dev
+- Vite — https://vite.dev
+- Netlify — https://www.netlify.com
