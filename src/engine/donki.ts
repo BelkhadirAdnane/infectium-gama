@@ -65,7 +65,9 @@ const DEMO_KEY = 'DEMO_KEY';
  * `VITE_NASA_API_KEY` : c'est une clé de quota api.nasa.gov, publique par
  * nature, jamais un secret privé.
  */
-const NASA_PROXY = ((import.meta.env.VITE_NASA_PROXY as string) || '').trim();
+// En production (Netlify) on passe toujours par la Function : la clé reste côté serveur.
+// En dev local (npm run dev), pas de Function : appel direct avec la clé du .env.
+const NASA_PROXY = import.meta.env.PROD ? '/.netlify/functions/nasa' : '';
 
 /** Construit l'URL NASA (directe ou via le proxy serveur). */
 function nasaEndpoint(pathWithQuery: string, key: string): string {
